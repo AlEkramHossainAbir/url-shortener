@@ -23,8 +23,8 @@ app.get("/:shortId", async (req, res) => {
   const result = await URL.findOneAndUpdate(
     { shortId: shortId },
     {
-      $push: {
-        visitedHistory: {
+       $push: {
+        visitHistory: {
           timestamps: Date.now(),
         },
       },
