@@ -4,7 +4,7 @@ const path = require("path");
 const app = express();
 const { ConnectToMongoDb } = require("./connect");
 const urlRoute = require("./routes/url");
-// const userRoute = require("./routes/user");
+const userRoute = require("./routes/user");
 const URL = require("./models/url");
 
 const PORT = process.env.PORT || 3000;
@@ -22,7 +22,7 @@ app.set("views", path.resolve("./views"));
 app.use(express.json());
 
 app.use("/url", urlRoute);
-// app.use("/user", userRoute);
+app.use("/user", userRoute);
 
 app.get("/home",async (req, res) => {
   const allUrls = await URL.find({});
@@ -41,7 +41,6 @@ app.get("/:shortId", async (req, res) => {
       },
     }
   );
-  console.log(result.redirectUrl);
 
   res.redirect(result.redirectUrl);
 });
