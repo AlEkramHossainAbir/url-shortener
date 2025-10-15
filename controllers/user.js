@@ -1,20 +1,11 @@
 const User = require('../models/user');
 
-const handleGetUser = (req, res, db) => {
-    const userId = req.params.userId;
-    db.collection('users').findOne({ id: userId }, (err, user) => {
-        if (err) {
-            return res.status(500).json({ error: "Database error" });
-        }
-        if (!user) {
-            return res.status(404).json({ error: "User not found" });
-        }
-        res.json(user);
-    });
+const handleGetUser = (req, res) => {
+    res.render("signup")
 }
 
-const handleUserSignUp = async (req, res, db) => {
-    console.log("called")
+const handleUserSignUp = async (req, res) => {
+    console.log("called", req.body)
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
         return res.status(400).json({ error: "Name, email and password are required" });
