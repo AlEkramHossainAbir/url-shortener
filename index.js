@@ -5,6 +5,7 @@ const app = express();
 const { ConnectToMongoDb } = require("./connect");
 const urlRoute = require("./routes/url");
 const userRoute = require("./routes/user");
+const staticRoute = require("./routes/staticRouter");
 const URL = require("./models/url");
 
 const PORT = process.env.PORT || 3000;
@@ -23,11 +24,7 @@ app.use(express.json());
 
 app.use("/url", urlRoute);
 app.use("/user", userRoute);
-
-app.get("/home",async (req, res) => {
-  const allUrls = await URL.find({});
-  res.render("home",{urls: allUrls});
-});
+app.use("/", staticRoute);
 
 app.get("/:shortId", async (req, res) => {
   const shortId = req.params.shortId;
