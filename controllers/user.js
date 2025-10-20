@@ -1,7 +1,8 @@
 const User = require('../models/user');
 
-const handleGetUser = (req, res) => {
-    res.render("signup")
+const handleUserLogin = (req, res) => {
+    console.log("login called", req.body)
+    return res.render("login")
 }
 
 const handleUserSignUp = async (req, res) => {
@@ -18,6 +19,6 @@ const handleUserSignUp = async (req, res) => {
 }
 
 module.exports = {
-    handleGetUser,
+    handleUserLogin,
     handleUserSignUp
 }
