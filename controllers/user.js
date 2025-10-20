@@ -1,8 +1,21 @@
 const User = require('../models/user');
 
-const handleUserLogin = (req, res) => {
-    console.log("login called", req.body)
-    return res.render("login")
+const handleUserLogin = async (req, res) => {
+    console.log("called", req.body)
+     const { email, password } = req.body;
+    if ( !email || !password) {
+        return res.status(400).json({ error: "Name, email and password are required" });
+    }
+
+    const user = await User.findOne({ email, password });
+
+    console.log(user)
+
+    if (!user) {
+        return res.render("login", { error: "Invalid User" });
+    }
+
+    return res.redirect("/")
 }
 
 const handleUserSignUp = async (req, res) => {
@@ -14,7 +27,7 @@ const handleUserSignUp = async (req, res) => {
 
     await User.create({ name, email, password });
 
-    return res.render("home")
+    return res.redirect("/");
     
 }
 
